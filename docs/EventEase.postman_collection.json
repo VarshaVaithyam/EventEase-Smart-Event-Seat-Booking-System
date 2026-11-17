@@ -1,0 +1,201 @@
+{
+  "info": {
+    "name": "EventEase — Event Seat Booking System API",
+    "_postman_id": "c7a0b3a0-9e2a-4c11-8d2e-9b77c2d02026",
+    "description": "Complete Postman verification collection for EventEase Spring Boot + PostgreSQL REST APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "organizerToken", "value": "" },
+    { "key": "attendeeToken", "value": "" },
+    { "key": "eventId", "value": "1" },
+    { "key": "holdId", "value": "1" },
+    { "key": "bookingId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Attendee",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Demo Attendee\",\n  \"email\": \"new.attendee@eventease.dev\",\n  \"password\": \"DemoPass@123\",\n  \"role\": \"ATTENDEE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Organizer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"organizer@eventease.dev\",\n  \"password\": \"DemoPass@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Attendee",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"attendee@eventease.dev\",\n  \"password\": \"DemoPass@123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Events & Seats",
+      "item": [
+        {
+          "name": "List All Upcoming Events",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/events" }
+        },
+        {
+          "name": "Get Event Details",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/events/{{eventId}}" }
+        },
+        {
+          "name": "Get Interactive Event Seat Map",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/events/{{eventId}}/seats" }
+        },
+        {
+          "name": "Create Event (Organizer)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/events",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"TENSORA 2K27\",\n  \"category\": \"AI Innovation Hackathon\",\n  \"description\": \"Annual AI & Systems Engineering Symposium\",\n  \"venue\": \"KLN College Auditorium\",\n  \"eventDate\": \"2027-03-15T10:00:00Z\",\n  \"totalRows\": 10,\n  \"seatsPerRow\": 12,\n  \"ticketPrice\": 499.00\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Holds & Bookings",
+      "item": [
+        {
+          "name": "Hold Seats (Attendee)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/holds",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": 1,\n  \"seatIds\": [45, 46]\n}"
+            }
+          }
+        },
+        {
+          "name": "Confirm Booking (Attendee)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/bookings/confirm",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"holdId\": {{holdId}}\n}"
+            }
+          }
+        },
+        {
+          "name": "My Bookings (Attendee)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{attendeeToken}}" }],
+            "url": "{{baseUrl}}/api/bookings/my"
+          }
+        },
+        {
+          "name": "Get Booking QR Ticket",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{attendeeToken}}" }],
+            "url": "{{baseUrl}}/api/bookings/{{bookingId}}/ticket"
+          }
+        },
+        {
+          "name": "Cancel Booking (Attendee)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{attendeeToken}}" }],
+            "url": "{{baseUrl}}/api/bookings/{{bookingId}}/cancel"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Organizer Settings, Analytics & Gemini AI",
+      "item": [
+        {
+          "name": "Get Booking Settings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{organizerToken}}" }],
+            "url": "{{baseUrl}}/api/settings"
+          }
+        },
+        {
+          "name": "Update Booking Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/settings",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"maxSeatsPerBooking\": 4,\n  \"holdDurationMinutes\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Organizer Analytics",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{organizerToken}}" }],
+            "url": "{{baseUrl}}/api/organizer/analytics"
+          }
+        },
+        {
+          "name": "Generate Event Description with Gemini AI",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+            ],
+            "url": "{{baseUrl}}/api/ai/generate-event-description",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventName\": \"TENSORA 2K26\",\n  \"category\": \"AI Innovation Hackathon\",\n  \"venue\": \"KLN College Auditorium\",\n  \"keywords\": \"Artificial Intelligence, Innovation, Students\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

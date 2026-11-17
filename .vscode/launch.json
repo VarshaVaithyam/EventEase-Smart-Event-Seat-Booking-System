@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug Spring Boot Backend (EventBookingApplication)",
+      "request": "launch",
+      "mainClass": "com.cardinality.eventbooking.EventBookingApplication",
+      "projectName": "event-seat-booking",
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "SERVER_ADDRESS": "0.0.0.0",
+        "SERVER_PORT": "8080",
+        "DB_URL": "jdbc:postgresql://localhost:5432/eventbooking",
+        "DB_USERNAME": "postgres",
+        "DB_PASSWORD": "postgres"
+      }
+    }
+  ]
+}

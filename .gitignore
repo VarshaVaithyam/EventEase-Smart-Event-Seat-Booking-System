@@ -1,0 +1,37 @@
+# Git & OS
+.DS_Store
+Thumbs.db
+
+# Backend / Maven / Java
+backend/target/
+target/
+*.class
+*.log
+*.jar
+!**/wrapper/*.jar
+.mvn/timing.properties
+
+# Frontend / Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+node_modules/
+dist/
+coverage/
+
+# Environments & Secrets
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# IDEs
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+
+# Packaged zip archives
+*.zip

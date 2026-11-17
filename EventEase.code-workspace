@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "name": "EventEase (Root)",
+      "path": "."
+    },
+    {
+      "name": "Backend (Spring Boot 3 + Java 21)",
+      "path": "backend"
+    },
+    {
+      "name": "Frontend (React + Vite)",
+      "path": "frontend"
+    }
+  ],
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/target": true,
+      "**/dist": true
+    }
+  }
+}

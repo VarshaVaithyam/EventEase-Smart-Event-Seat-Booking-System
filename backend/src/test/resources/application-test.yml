@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:postgresql://127.0.0.1:5432/eventbooking_test}
+    username: ${TEST_DB_USERNAME:postgres}
+    password: ${TEST_DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 25
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+app:
+  jwt:
+    secret: EventEaseTestSecretKeyForAutomatedJUnitSuite2026CardinalityAssessmentKey!
+    expiration-ms: 3600000
+  seed:
+    enabled: false
+  scheduler:
+    hold-cleanup-ms: 600000
+  gemini:
+    api-key: ""

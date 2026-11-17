@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. Start Backend (Spring Boot :8080)",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "command": "mvn spring-boot:run",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "2. Install Frontend Dependencies",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "command": "npm install",
+      "problemMatcher": []
+    },
+    {
+      "label": "3. Start Frontend (Vite :5173)",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "command": "npm run dev",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "4. Run Backend Tests (JUnit + Concurrency)",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "command": "mvn test",
+      "problemMatcher": []
+    },
+    {
+      "label": "5. Run Frontend Tests (Vitest)",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "command": "npm test",
+      "problemMatcher": []
+    }
+  ]
+}
